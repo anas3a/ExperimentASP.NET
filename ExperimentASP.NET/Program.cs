@@ -10,6 +10,7 @@ namespace ExperimentASP.NET
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllers();
             builder.Services.AddTransient<JsonFileProductService>();
 
             var app = builder.Build();
@@ -30,6 +31,7 @@ namespace ExperimentASP.NET
             app.UseAuthorization();
 
             app.MapRazorPages();
+            app.MapControllers();
 
             app.Run();
         }
