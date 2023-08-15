@@ -1,3 +1,5 @@
+using ExperimentASP.NET.Services;
+
 namespace ExperimentASP.NET
 {
     public class Program
@@ -8,6 +10,7 @@ namespace ExperimentASP.NET
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddTransient<JsonFileProductService>();
 
             var app = builder.Build();
 
