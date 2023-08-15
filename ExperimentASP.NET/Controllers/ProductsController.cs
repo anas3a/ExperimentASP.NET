@@ -20,5 +20,19 @@ namespace ExperimentASP.NET.Controllers
         {
             return ProductService.GetProducts();
         }
+
+        [Route("Rate")]
+        [HttpGet]
+        public ActionResult Get([FromQuery] string? productId,
+                                [FromQuery] int? rating)
+        {
+            if (productId == null || rating == null)
+            {
+                return BadRequest();
+            }
+
+            ProductService.AddRating(productId, rating.Value);
+            return Ok();
+        }
     }
 }

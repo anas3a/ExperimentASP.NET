@@ -26,5 +26,42 @@ namespace ExperimentASP.NET.Services
                                    PropertyNameCaseInsensitive = true
                                });
         }
+
+        public void AddRating(string productId, int rating)
+        {
+            IEnumerable<Product>? products = GetProducts();
+
+            if (products == null)
+            {
+                return;
+            }
+
+            Product? query = products.FirstOrDefault(x => x.Id == productId);
+
+            if (query == null)
+            {
+                return;
+            }
+
+            if (query.Ratings == null)
+            {
+                query.Ratings = new int[] { rating };
+            }
+            else
+            {
+                List<int> ratings = query.Ratings.ToList();
+                ratings.Add(rating);
+                query.Ratings = ratings.ToArray();
+            }
+
+            using var outputStream = File.OpenWrite(JsonFileName);
+            JsonSerializer.Serialize<IEnumerable<Product>>(
+                               new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                               {
+                                   SkipValidation = true,
+                                   Indented = true
+                               }),
+                               products);
+        }
     }
 }
