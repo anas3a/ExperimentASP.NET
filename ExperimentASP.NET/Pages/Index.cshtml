@@ -8,3 +8,11 @@
     <h1 class="display-4">Experiment with ASP.NET</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@foreach(var product in Model.Products!)
+{
+    <div>
+        <h2>@product.Title</h2>
+        <p>@product.Description</p>
+    </div>
+}
