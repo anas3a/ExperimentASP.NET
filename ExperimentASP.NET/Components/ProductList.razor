@@ -1,0 +1,32 @@
+﻿@using ExperimentASP.NET.Models;
+@using ExperimentASP.NET.Services;
+@inject JsonFileProductService ProductService
+
+
+<div class="card-columns row" data-masonry='{"percentPosition": true }'>
+    @foreach (var product in ProductService.GetProducts()!)
+    {
+        <div class="card col-3">
+            <div class="card-img" style="background-image: url('@product.Image');"> </div>
+            <div class="card-body">
+                <h5 class="card-title">@product.Title</h5>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button @onclick="(e => SelectProduct(product.Id))"
+                    class="btn btn-primary" data-toggle="modal" data-target="#productModal">
+                More Info
+            </button>
+        </div>
+    }
+</div>
+
+@code {
+    Product SelectedProduct;
+    string SelectedProductId;
+
+    void SelectProduct(string productId)
+    {
+        SelectedProduct = ProductService.GetProducts().FirstOrDefault(p => p.Id == productId);
+    }
+}
